@@ -3,6 +3,7 @@ build
 .metadata
 .gradle
 jdt.ls-java-project
+META-INF
 
 # Ignore jokkestuff
 bin
