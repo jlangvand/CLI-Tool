@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package com.github.jlangvand.cli;
+package no.iskra.cli;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -138,6 +138,7 @@ class CLI {
     String cmd = getNthWord(in, 1);
     Map<String, String> args = getArgumentsFromString(in);
     List<String> params = getParamsFromString(in);
+    List<String> flags = null;
     params.remove(cmd);
 
     /* Special cases */
@@ -154,7 +155,7 @@ class CLI {
 
     commands.stream().filter(c -> c.respondsToCommand(cmd)).findFirst().ifPresent(command -> {
       try {
-        out.append(command.exec(params, args));
+        out.append(command.exec(params, flags, args));
       } catch (IllegalAccessException e) {
         System.out.println("Illegal access exception");
         e.printStackTrace();

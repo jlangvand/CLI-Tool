@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package com.github.jlangvand.cli;
+package no.iskra.cli;
 
 import java.util.Arrays;
 import java.lang.reflect.InvocationTargetException;
@@ -32,34 +32,35 @@ class Command {
   protected final String cmd;
   protected List<String> aliases;
   protected final String helpText;
-  protected final CLIFunctions functions;
+  protected final CLIFunctions functionsObject;
   protected final Method function;
 
   /**
    * Construct a new Command.
    *
-   * @param cmd      Command name.
-   * @param helpText Description and usage.
-   * @param function Method to be run when called.
+   * @param cmd             Command name.
+   * @param helpText        Description and usage.
+   * @param functionsObject Instance of class holding function methods.
+   * @param function        Method to be run when called.
    */
   protected Command(String cmd, String helpText, CLIFunctions functionsObject) throws NoSuchMethodException {
     this.cmd = cmd.substring(3).toLowerCase();
-    this.functions = functionsObject;
+    this.functionsObject = functionsObject;
     this.function = functionsObject.getClass().getDeclaredMethod(cmd, List.class, Map.class);
     this.helpText = helpText;
     aliases = new ArrayList<String>();
   }
 
   /**
-   * Run applied method and return the result as a String.
+   * Run command method and return the result as a String.
    *
-   * @param params  Parameters(s)/subcommand(s).
-   * @param options Options to be passed to the method.
+   * @param params Parameters(s)/subcommand(s).
+   * @param args   Arguments to be passed to the method.
    * @return The result.
    */
-  protected String exec(List<String> params, Map<String, String> options)
+  protected String exec(List<String> params, List<String> flags, Map<String, String> args)
       throws IllegalAccessException, InvocationTargetException {
-    return (String) function.invoke(functions, params, options);
+    return (String) function.invoke(functionsObject, params, flags, args);
   }
 
   /**
