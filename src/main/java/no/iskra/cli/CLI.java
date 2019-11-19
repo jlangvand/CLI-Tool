@@ -38,12 +38,15 @@ public class CLI {
 
   /**
    * Initialise new CLI.
+   *
+   * @param functionsObject Instance of class holding the "command methods".
+   *
    */
-  public CLI(CLIFunctions functions) {
+  public CLI(CLIFunctions functionsObject) {
     commands = new ArrayList<Command>();
-    functions.getCommands().stream().forEach(method -> {
+    functionsObject.getCommands().stream().forEach(method -> {
       try {
-        addCommand(method.getName(), "", functions);
+        addCommand(method.getName(), "", functionsObject);
       } catch (NoSuchMethodException e) {
         System.out.println(noSuchMethodMessage);
       }
@@ -132,6 +135,7 @@ public class CLI {
    * Parse string from user input.
    *
    * @param in String to parse.
+   * @return Output of command.
    */
   public String parse(String in) throws UserInterruptException {
     in = in.toLowerCase();

@@ -27,11 +27,10 @@ import java.util.stream.Collectors;
  * Declare all commands the CLI should recognise.
  *
  * Every method representing a command must be prefixed with 'cmd', and accept
- * the parameters 'List<String> params, List<String> flags, Map<String, String>
- * args'. The rest of the method name will be used as 'name' for the command.
- * That means the method 'cmdList(List<String> params, Map<String, String>
- * options)' will represent a command 'list'. The body of the method will be
- * invoked by the interpreter when appropriate.
+ * the parameters List params, List flags, Map args. The rest of the method name
+ * will be used as 'name' for the command. That means the method cmdList(List
+ * params, List flags, Map options) will represent a command 'list'. The body of
+ * the method will be invoked by the interpreter when appropriate.
  */
 public abstract class CLIFunctions {
   /* Declare or initialise fields as needed */
