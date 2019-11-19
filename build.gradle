@@ -1,13 +1,16 @@
  plugins {
-   id 'maven-publish'
+   id 'maven'
    id 'java-library'
  }
 
 apply plugin: 'java'
-apply plugin: 'maven-publish'
+apply plugin: 'maven'
 
 group = 'no.iskra'
 version = '1.0.2'
+
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
 
 repositories {
     jcenter()
@@ -29,12 +32,12 @@ jar {
   from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allJava
-    archiveClassifier = 'sources'
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
 }
 
-task javadocJar(type: Jar) {
-    from javadoc
-    archiveClassifier = 'javadoc'
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
 }
