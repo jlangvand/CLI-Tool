@@ -4,5 +4,5 @@ A simple CLI library. The goal here was to build an intuitive, easy to use comma
 
 The code is a little unpolished still, but I'll try to tidy it up and improve the documentation a bit.
 
-[![Release](https://jitpack.io/v/com.example/Repo.svg)]
-(https://jitpack.io/#com.example/Repo)
+[![Release](https://jitpack.io/v/no.iskra/CLI-Tool.svg)]
+(https://jitpack.io/#no.iskra/CLI-Tool)
