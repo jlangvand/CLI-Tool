@@ -6,8 +6,15 @@
  * user guide available at https://docs.gradle.org/4.4.1/userguide/tutorial_java_projects.html
  */
 
+ plugins {
+   id 'maven-publish'
+ }
+
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+group = 'no.iskra'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
