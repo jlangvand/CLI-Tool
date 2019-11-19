@@ -31,7 +31,7 @@ import java.util.Scanner;
  *
  * TODO: Short command name is being ignored for now.
  */
-class CLI {
+public class CLI {
   List<Command> commands;
   String noSuchCommandMessage = "No such command";
   String noSuchMethodMessage = "Internal exception: no such method";
@@ -95,7 +95,7 @@ class CLI {
   }
 
   private void addCommand(String cmd, String helpText, CLIFunctions functions) throws NoSuchMethodException {
-    commands.add(new Command(cmd, helpText, functions));
+    commands.add(new Command(cmd, helpText, new ArrayList<String>(), functions));
   }
 
   /* Returns the first word of the string. */
