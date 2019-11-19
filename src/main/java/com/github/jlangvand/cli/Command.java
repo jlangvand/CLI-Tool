@@ -30,7 +30,7 @@ import java.util.Map;
  */
 class Command {
   protected final String cmd;
-  protected List<String> aliases;
+  protected final List<String> aliases;
   protected final String helpText;
   protected final CLIFunctions functionsObject;
   protected final Method function;
@@ -43,11 +43,13 @@ class Command {
    * @param functionsObject Instance of class holding function methods.
    * @param function        Method to be run when called.
    */
-  protected Command(String cmd, String helpText, CLIFunctions functionsObject) throws NoSuchMethodException {
+  protected Command(String cmd, String helpText, List<String> aliases, CLIFunctions functionsObject)
+      throws NoSuchMethodException {
     this.cmd = cmd.substring(3).toLowerCase();
+    this.aliases = aliases;
+    this.helpText = helpText;
     this.functionsObject = functionsObject;
     this.function = functionsObject.getClass().getDeclaredMethod(cmd, List.class, Map.class);
-    this.helpText = helpText;
     aliases = new ArrayList<String>();
   }
 
