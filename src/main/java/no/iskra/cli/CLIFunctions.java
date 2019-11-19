@@ -37,6 +37,7 @@ public abstract class CLIFunctions {
   /* Declare or initialise fields as needed */
 
   protected List<Method> getCommands() {
+    new List<String>();
     return Arrays.asList(this.getClass().getDeclaredMethods()).stream().filter(m -> m.getName().startsWith("cmd"))
         .collect(Collectors.toList());
   }

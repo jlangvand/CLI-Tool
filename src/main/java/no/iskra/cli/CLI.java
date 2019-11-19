@@ -32,14 +32,14 @@ import java.util.Scanner;
  * TODO: Short command name is being ignored for now.
  */
 public class CLI {
-  List<Command> commands;
-  String noSuchCommandMessage = "No such command";
-  String noSuchMethodMessage = "Internal exception: no such method";
+  private List<Command> commands;
+  private String noSuchCommandMessage = "No such command";
+  private String noSuchMethodMessage = "Internal exception: no such method";
 
   /**
    * Initialise new CLI.
    */
-  CLI(CLIFunctions functions) {
+  public CLI(CLIFunctions functions) {
     commands = new ArrayList<Command>();
     functions.getCommands().stream().forEach(method -> {
       try {
@@ -133,7 +133,7 @@ public class CLI {
    *
    * @param in String to parse.
    */
-  protected String parse(String in) throws UserInterruptException {
+  public String parse(String in) throws UserInterruptException {
     in = in.toLowerCase();
     String cmd = getNthWord(in, 1);
     Map<String, String> args = getArgumentsFromString(in);
