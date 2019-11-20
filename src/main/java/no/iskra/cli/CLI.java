@@ -31,7 +31,7 @@ import java.util.Scanner;
  *
  * TODO: Short command name is being ignored for now.
  */
-public class CLI {
+public class CLI<T extends CLIFunctions> {
   private List<Command> commands;
   private String noSuchCommandMessage = "No such command";
   private String noSuchMethodMessage = "Internal exception: no such method";
@@ -42,7 +42,10 @@ public class CLI {
    * @param functionsObject Instance of class holding the "command methods".
    *
    */
-  public CLI(CLIFunctions functionsObject) {
+  public CLI() {
+
+    Class<T> functionsObject = ;
+
     commands = new ArrayList<Command>();
     functionsObject.getCommands().stream().forEach(method -> {
       try {
