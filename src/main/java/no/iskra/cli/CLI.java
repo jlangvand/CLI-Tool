@@ -42,10 +42,7 @@ public class CLI<T extends CLIFunctions> {
    * @param functionsObject Instance of class holding the "command methods".
    *
    */
-  public CLI() {
-
-    Class<T> functionsObject = ;
-
+  public CLI(CLIFunctions functionsObject) {
     commands = new ArrayList<Command>();
     functionsObject.getCommands().stream().forEach(method -> {
       try {
