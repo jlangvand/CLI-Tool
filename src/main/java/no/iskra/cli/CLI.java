@@ -153,6 +153,8 @@ public class CLI<T> {
     case "help":
       // TODO: Return helptext
       break;
+    case "cliversion":
+      return "2.0.2";
     case "exit":
       throw new UserInterruptException("User exit");
     default:
