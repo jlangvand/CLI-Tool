@@ -19,19 +19,30 @@ The library is hosted on [Jitpack](https://jitpack.io/#no.iskra/CLI-Tool). Gradl
       }
     }
     dependencies {
-      implementation 'no.iskra:CLITool:v2.0'
+      implementation 'no.iskra:CLITool:v2.0.1'
     }
 
 ## Usage
 
-* Create a class which extends `CLIFunctions`.
-* Declare any fields your "command methods" need to access.
-* Declare one method for every main "function", or command, you want to make available in the CLI.
-  * Every "command method" _must_ be prefixed with `cmd`.
-  * All `cmd`-prefixed methods _must_ have the parameters `List<String> params, List<String> flags, Map<String, String> args` and return a String, which will be passed back to the CLI, then printed to System.out.
-  * Example: the method `cmdList(List<String> params, List<String> flags, Map<String, String> options) { ... }` will represent a command `list`.
-* Instantiate a new CLI, passing it an instance of your 'functions' class: `myCli = new CLI(new myFunctions())`.
-* Start the CLI with `myCli.cli()`. This method is blocking. `exit` will close the CLI.
+Methods with the `@Cmd(name = "commandname")` annotation can be run as commands in the created CLI. All methods you want to call from the CLI must reside in the same class. As for now, they all need to accept the parameters `List<String> params, List<String> flags, Map<String, String> args`, nothing more, nothing less. They also need to return a String, which should contain a human readable result of the operation.
+
+The parameter `List<String> flags` is, for now, ignored. This feature will be implemented soon.
+
+Example:
+
+    // App.java
+
+    public static void main(String[] args) {
+      CLI<App> cli = new CLI<App>(new App());
+      cli.cli();
+    }
+
+    @Cmd(name = "hello")
+    String helloWorldExampleCommand(List<String> params, List<String> flags, Map<String, String> args) {
+      return "Hello, World!";
+    }
+
+The CLI would now accept the command 'hello', to which it would respond with the output of `helloWorldExampleCommand`.
 
 `CLI.parse(String in)` is public and can be used to parse input without starting the CLI for whatever reason, like passing command line arguments from 'main', or implementing your own user input method.
 
