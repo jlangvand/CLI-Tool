@@ -6,7 +6,7 @@ A library for building a simple CLI for terminal Java applications. Don't expect
 
 The code is a little unpolished still, but I'll try to tidy it up and improve the documentation a bit.
 
-Javadoc hosted by Jitpack can be found [here](https://javadoc.jitpack.io/no/iskra/CLI-Tool/1.0.2/javadoc/)
+Javadoc hosted by Jitpack can be found [here](https://javadoc.jitpack.io/no/iskra/CLI-Tool/master-SNAPSHOT/javadoc)
 
 ## Importing
 
