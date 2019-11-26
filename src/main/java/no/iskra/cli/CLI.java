@@ -45,14 +45,6 @@ public class CLI<T> {
    */
   public CLI(T functionsObject) {
     commands = new ArrayList<Command<T>>();
-    // Arrays.asList(functionsObject.getClass().getDeclaredMethods()).stream()
-    // .filter(m -> m.getDeclaredAnnotation(Cmd.class) != null).forEach(method -> {
-    // try {
-    // addCommand(method.getName(), functionsObject);
-    // } catch (NoSuchMethodException e) {
-    // System.out.println(noSuchMethodMessage);
-    // }
-    // });
     Command.getCommandMethods(functionsObject).forEach(method -> {
       try {
         addCommand(method.getDeclaredAnnotation(Cmd.class), functionsObject);
@@ -112,7 +104,7 @@ public class CLI<T> {
     commands.add(new Command<T>(cmd, new ArrayList<String>(), functions));
   }
 
-  /* Returns the first word of the string. */
+  /* Returns the first word of the string. TODO: Move this to another class */
   private String getNthWord(String in, int n) {
     assert in.length() > n - 1 : "Asked for word " + n + " from a string of " + in.length() + " words.";
     return in.split(" ")[n - 1];

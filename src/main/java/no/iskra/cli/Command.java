@@ -20,10 +20,8 @@ package no.iskra.cli;
 
 import java.util.stream.Collectors;
 import java.util.Arrays;
-import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +38,7 @@ class Command<T> {
   /**
    * Construct a new Command.
    *
-   * @param cmd             Command name.
+   * @param cmd             Command annotation.
    * @param helpText        Description and usage.
    * @param functionsObject Instance of class holding function methods.
    * @param function        Method to be run when called.
