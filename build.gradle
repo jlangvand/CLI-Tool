@@ -8,7 +8,7 @@ apply plugin: 'java'
 apply plugin: 'maven'
 
 group = 'no.iskra'
-version = '2.0.1'
+version = '2.0.2'
 
 sourceCompatibility = 1.11
 targetCompatibility = 1.11
