@@ -18,8 +18,12 @@
 
 package no.iskra.cli;
 
+import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,11 +31,10 @@ import java.util.Map;
 /**
  * Command class
  */
-class Command {
+class Command<T> {
   protected final String cmd;
   protected final List<String> aliases;
-  protected final String helpText;
-  protected final CLIFunctions functionsObject;
+  protected final T functionsObject;
   protected final Method function;
 
   /**
@@ -42,14 +45,36 @@ class Command {
    * @param functionsObject Instance of class holding function methods.
    * @param function        Method to be run when called.
    */
-  protected Command(String cmd, String helpText, List<String> aliases, CLIFunctions functionsObject)
-      throws NoSuchMethodException {
-    this.cmd = cmd.substring(3).toLowerCase();
+  protected Command(Cmd cmd, List<String> aliases, T functionsObject) throws NoSuchMethodException, Exception {
+    this.cmd = cmd.name().toLowerCase();
     this.aliases = aliases;
-    this.helpText = helpText;
     this.functionsObject = functionsObject;
-    this.function = functionsObject.getClass().getDeclaredMethod(cmd, List.class, Map.class);
+    this.function = getMethodByCmd(cmd, functionsObject);
     aliases = new ArrayList<String>();
+
+    if (this.function == null) {
+      throw new Exception("Function is null");
+    } else if (!methodIsAccessible(this.function)) {
+      throw new Exception("Method is not accessible");
+    }
+  }
+
+  protected static <S> Method getMethodByCmd(Cmd cmd, S functionsObject) {
+    for (Method m : getCommandMethods(functionsObject)) {
+      if (m.getDeclaredAnnotation(Cmd.class).equals(cmd)) {
+        return m;
+      }
+    }
+    return null;
+  }
+
+  protected static <S> List<Method> getCommandMethods(S functionsObject) {
+    return Arrays.asList(functionsObject.getClass().getDeclaredMethods()).stream()
+        .filter(m -> m.getDeclaredAnnotation(Cmd.class) != null).collect(Collectors.toList());
+  }
+
+  protected static boolean methodIsAccessible(Method m) {
+    return m.trySetAccessible();
   }
 
   /**

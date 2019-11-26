@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.lang.reflect.Method;
 import java.util.Scanner;
 
 /**
@@ -31,8 +32,8 @@ import java.util.Scanner;
  *
  * TODO: Short command name is being ignored for now.
  */
-public class CLI<T extends CLIFunctions> {
-  private List<Command> commands;
+public class CLI<T> {
+  private List<Command<T>> commands;
   private String noSuchCommandMessage = "No such command";
   private String noSuchMethodMessage = "Internal exception: no such method";
 
@@ -42,13 +43,23 @@ public class CLI<T extends CLIFunctions> {
    * @param functionsObject Instance of class holding the "command methods".
    *
    */
-  public CLI(CLIFunctions functionsObject) {
-    commands = new ArrayList<Command>();
-    functionsObject.getCommands().stream().forEach(method -> {
+  public CLI(T functionsObject) {
+    commands = new ArrayList<Command<T>>();
+    // Arrays.asList(functionsObject.getClass().getDeclaredMethods()).stream()
+    // .filter(m -> m.getDeclaredAnnotation(Cmd.class) != null).forEach(method -> {
+    // try {
+    // addCommand(method.getName(), functionsObject);
+    // } catch (NoSuchMethodException e) {
+    // System.out.println(noSuchMethodMessage);
+    // }
+    // });
+    Command.getCommandMethods(functionsObject).forEach(method -> {
       try {
-        addCommand(method.getName(), "", functionsObject);
+        addCommand(method.getDeclaredAnnotation(Cmd.class), functionsObject);
       } catch (NoSuchMethodException e) {
         System.out.println(noSuchMethodMessage);
+      } catch (Exception e) {
+        System.out.println(e.getMessage());
       }
     });
   }
@@ -97,8 +108,8 @@ public class CLI<T extends CLIFunctions> {
     this.noSuchMethodMessage = noSuchMethodMessage;
   }
 
-  private void addCommand(String cmd, String helpText, CLIFunctions functions) throws NoSuchMethodException {
-    commands.add(new Command(cmd, helpText, new ArrayList<String>(), functions));
+  private void addCommand(Cmd cmd, T functions) throws NoSuchMethodException, Exception {
+    commands.add(new Command<T>(cmd, new ArrayList<String>(), functions));
   }
 
   /* Returns the first word of the string. */

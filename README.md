@@ -19,7 +19,7 @@ The library is hosted on [Jitpack](https://jitpack.io/#no.iskra/CLI-Tool). Gradl
       }
     }
     dependencies {
-      implementation 'no.iskra:CLI-Tool:v1.0.2'
+      implementation 'no.iskra:CLITool:v2.0'
     }
 
 ## Usage
