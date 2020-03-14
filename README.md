@@ -1,4 +1,5 @@
 [![Release](https://jitpack.io/v/no.iskra/CLI-Tool.svg)](https://jitpack.io/#no.iskra/CLI-Tool)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjlangvand%2FCLI-Tool.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjlangvand%2FCLI-Tool?ref=badge_shield)
 
 # CLI Tool
 
@@ -47,3 +48,7 @@ The CLI would now accept the command 'hello', to which it would respond with the
 `CLI.parse(String in)` is public and can be used to parse input without starting the CLI for whatever reason, like passing command line arguments from 'main', or implementing your own user input method.
 
 The CLI will accept any input after the command. Single words will be interpreted as a `param`. `--key=value` and `--key2="value 2"` will be passed as key, value pairs in `args`. Flags are not yet used, so `-f` will simply be ignored. The parameter is included for future backwards compatibility.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjlangvand%2FCLI-Tool.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjlangvand%2FCLI-Tool?ref=badge_large)
